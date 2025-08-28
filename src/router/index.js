@@ -4,7 +4,7 @@ import CalculatorView from '@/views/CalculatorView.vue'
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'calculator',
     component: CalculatorView
   }
 ]

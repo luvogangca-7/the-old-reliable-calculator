@@ -8,34 +8,65 @@
 
         <div class="screen">
             <div class="input">
-                <p>{{ input }}</p>
+                <input type="text" v-if="typing" v-model="input">
+                <p class="answer" v-else>{{ answer }}</p>
+
             </div>
         </div>
 
         <div class="buttons">
-            <button>9</button>
-            <button>8</button>
-            <button>7</button>
-            <button class="ops">+</button>
-            <button>6</button>
-            <button>5</button>
-            <button>4</button>
-            <button class="ops">-</button>
-            <button>3</button>
-            <button>2</button>
-            <button>1</button>
-            <button class="ops">*</button>
-            <button>0</button>
-            <button><=</button>
-            <button class="equal">=</button>
-            <button class="ops">/</button>
+            <button :value="inputs.nums[9]" @click="typeValue(inputs.nums[9])">{{ inputs.nums[9] }}</button>
+            <button :value="inputs.nums[8]" @click="typeValue(inputs.nums[8])">{{ inputs.nums[8] }}</button>
+            <button :value="inputs.nums[7]" @click="typeValue(inputs.nums[7])">{{ inputs.nums[7] }}</button>
+            <button class="ops" :value="inputs.ops[0]" @click="typeValue(inputs.ops[0])">{{ inputs.ops[0] }}</button>
+            <button :value="inputs.nums[6]" @click="typeValue(inputs.nums[6])">{{ inputs.nums[6] }}</button>
+            <button :value="inputs.nums[5]" @click="typeValue(inputs.nums[5])">{{ inputs.nums[5] }}</button>
+            <button :value="inputs.nums[4]" @click="typeValue(inputs.nums[4])">{{ inputs.nums[4] }}</button>
+            <button class="ops" :value="inputs.ops[1]" @click="typeValue(inputs.ops[1])">{{ inputs.ops[1] }}</button>
+            <button :value="inputs.nums[3]" @click="typeValue(inputs.nums[3])">{{ inputs.nums[3] }}</button>
+            <button :value="inputs.nums[2]" @click="typeValue(inputs.nums[2])">{{ inputs.nums[2] }}</button>
+            <button :value="inputs.nums[1]" @click="typeValue(inputs.nums[1])">{{ inputs.nums[1] }}</button>
+            <button class="ops" :value="inputs.ops[2]" @click="typeValue(inputs.ops[2])">{{ inputs.ops[2] }}</button>
+            <button :value="inputs.nums[0]" @click="typeValue(inputs.nums[0])">{{ inputs.nums[0] }}</button>
+            <button :value="inputs.back">{{ inputs.back }}</button>
+            <button class="equal" :value="inputs.ans">{{ inputs.ans }}</button>
+            <button class="ops" :value="inputs.ops[3]">{{ inputs.ops[3] }}</button>
         </div>
         
     </div>
 </template>
 <script>
+import { isInteger } from "core-js/es/number";
+
 export default {
-    
+    data(){
+        return {
+            inputs:{
+                nums:[0,1,2,3,4,5,6,7,8,9],
+                ops:['+','-','*','/'],
+                ans:'=',
+                back:'<='
+            },
+            input:[],
+            answer:'',
+            typing:true
+        }  
+    },
+    methods:{
+        typeValue(value){
+            if (isInteger(value)){
+                this.input += value   
+            }
+            else {
+                this.input.push(value)
+            }
+            
+            this.showInput()
+        },
+        showInput(){
+            console.log(this.input);
+        }
+    }
 }
 </script>
 <style>
@@ -74,9 +105,16 @@ export default {
         padding: 10px;
     }
 
-    .screen .input{
+    .screen input{
+        background: transparent;
+        border: none;
+        color: white;
         text-align: end;
         font-size: 2.2rem;
+    }
+    
+    .screen input:focus {
+        outline:none;
     }
 
     .buttons {
@@ -111,5 +149,12 @@ export default {
         background-color: rgb(15, 142, 167);
         color:white;
         box-shadow: 0 4px 0 rgba(1, 78, 93, 0.8) !important;
+    }
+
+    @media (max-width: 600px) {
+        .main-page{
+            width: 100vw;
+        }
+        
     }
 </style>
