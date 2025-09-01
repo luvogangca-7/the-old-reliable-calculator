@@ -91,6 +91,7 @@ export default {
 <style>
     .main-page {
         height: 100%;
+        min-width: 280px;
         width: 35vw;
         border-radius: 30px;
         background-color: rgb(111, 111, 111);
@@ -131,6 +132,10 @@ export default {
         text-align: end;
         font-size: 2.2rem;
     }
+
+    .screen input {
+        width: 100%;
+    }
     
     .screen input:focus {
         outline:none;
@@ -149,7 +154,7 @@ export default {
         border-radius: 8px;
         border: none;
         box-shadow: 0 4px 0 rgba(53, 53, 53, 0.8);
-        font-size: 1.2rem;
+        font-size: 1.7rem;
         transition: transform 10ms ease-out;
     }
 
@@ -178,7 +183,7 @@ export default {
 
     @media (max-width: 600px) {
         .main-page{
-            width: 100vw; 
+            width: 80vw; 
         }
         
     }
