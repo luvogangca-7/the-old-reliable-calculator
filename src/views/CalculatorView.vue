@@ -15,6 +15,10 @@
         </div>
 
         <div class="buttons">
+            <button :value="inputs.ops[4]" @click="typeValue(inputs.ops[4])">{{ inputs.ops[4] }}</button>
+            <button :value="inputs.ops[5]" @click="typeValue(inputs.ops[5])">{{ inputs.ops[5] }}</button>
+            <button :value="inputs.back" @click="backspace()">{{ inputs.back }}</button>
+            <button class="clear" :value="inputs.ops[6]" @click="clear()">C</button>
             <button :value="inputs.nums[9]" @click="typeValue(inputs.nums[9])">{{ inputs.nums[9] }}</button>
             <button :value="inputs.nums[8]" @click="typeValue(inputs.nums[8])">{{ inputs.nums[8] }}</button>
             <button :value="inputs.nums[7]" @click="typeValue(inputs.nums[7])">{{ inputs.nums[7] }}</button>
@@ -28,45 +32,60 @@
             <button :value="inputs.nums[1]" @click="typeValue(inputs.nums[1])">{{ inputs.nums[1] }}</button>
             <button class="ops" :value="inputs.ops[2]" @click="typeValue(inputs.ops[2])">{{ inputs.ops[2] }}</button>
             <button :value="inputs.nums[0]" @click="typeValue(inputs.nums[0])">{{ inputs.nums[0] }}</button>
-            <button :value="inputs.back">{{ inputs.back }}</button>
-            <button class="equal" :value="inputs.ans">{{ inputs.ans }}</button>
-            <button class="ops" :value="inputs.ops[3]">{{ inputs.ops[3] }}</button>
+            <button :value="inputs.ops[6]" @click="typeValue(inputs.ops[6])">{{ inputs.ops[6] }}</button>
+            <button class="equal" @click="evaluate(input)">{{ inputs.ans }}</button>
+            <button class="ops" :value="inputs.ops[3]" @click="typeValue(inputs.ops[3])">{{ inputs.ops[3] }}</button>
         </div>
         
     </div>
 </template>
 <script>
-import { isInteger } from "core-js/es/number";
 
 export default {
     data(){
         return {
             inputs:{
                 nums:[0,1,2,3,4,5,6,7,8,9],
-                ops:['+','-','*','/'],
+                ops:['+','-','*','/','(',')','.'],
                 ans:'=',
                 back:'<='
             },
-            input:[],
+            input:'',
             answer:'',
             typing:true
         }  
     },
     methods:{
         typeValue(value){
-            if (isInteger(value)){
-                this.input += value   
-            }
-            else {
-                this.input.push(value)
+            if(!this.typing){
+                this.input = ''
+                this.typing = true
             }
             
-            this.showInput()
+            this.input += value        
         },
-        showInput(){
-            console.log(this.input);
-        }
+        evaluate(expr){
+
+            try {
+                this.answer = String(eval(expr))
+          
+            } catch (error) {
+                this.answer = 'ERROR' 
+            }
+            this.typing = false
+
+        return this.answer
+    },
+    backspace(){
+        this.input = this.input.slice(0, -1)
+    },
+    clear(){
+        this.input = ''
+        this.answer = ''
+        this.typing = true
     }
+    }
+    
 }
 </script>
 <style>
@@ -105,7 +124,7 @@ export default {
         padding: 10px;
     }
 
-    .screen input{
+    .screen input, .screen p{
         background: transparent;
         border: none;
         color: white;
@@ -151,9 +170,15 @@ export default {
         box-shadow: 0 4px 0 rgba(1, 78, 93, 0.8) !important;
     }
 
+    .clear {
+        background-color: #171717;
+        color:white;
+        box-shadow: 0 4px 0 rgba(14, 14, 14, 0.8) !important;
+    }
+
     @media (max-width: 600px) {
         .main-page{
-            width: 100vw;
+            width: 100vw; 
         }
         
     }
