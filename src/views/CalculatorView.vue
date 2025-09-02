@@ -18,7 +18,7 @@
             <button :value="inputs.ops[4]" @click="typeValue(inputs.ops[4])">{{ inputs.ops[4] }}</button>
             <button :value="inputs.ops[5]" @click="typeValue(inputs.ops[5])">{{ inputs.ops[5] }}</button>
             <button :value="inputs.back" @click="backspace()">{{ inputs.back }}</button>
-            <button class="clear" :value="inputs.ops[6]" @click="clear()">C</button>
+            <button class="clear" @click="clear()">C</button>
             <button :value="inputs.nums[9]" @click="typeValue(inputs.nums[9])">{{ inputs.nums[9] }}</button>
             <button :value="inputs.nums[8]" @click="typeValue(inputs.nums[8])">{{ inputs.nums[8] }}</button>
             <button :value="inputs.nums[7]" @click="typeValue(inputs.nums[7])">{{ inputs.nums[7] }}</button>
@@ -67,6 +67,11 @@ export default {
         evaluate(expr){
 
             try {
+                
+                expr = expr.replace(/(\d)(\()/g, '$1*$2');
+                expr = expr.replace(/(\))(\d)/g, '$1*$2');
+                expr = expr.replace(/(\))(\()/g, '$1*$2');
+
                 this.answer = String(eval(expr))
           
             } catch (error) {
@@ -98,6 +103,7 @@ export default {
         justify-self: center;
         align-self: center;
         padding: 30px 20px;
+        box-shadow: 0 20px 0 rgba(21, 21, 21, 0.4);
     }
     .brand {
         display: flex;
@@ -181,10 +187,10 @@ export default {
         box-shadow: 0 4px 0 rgba(14, 14, 14, 0.8) !important;
     }
 
-    @media (max-width: 600px) {
+   /* @media (max-width: 600px) {
         .main-page{
             width: 80vw; 
         }
-        
-    }
+
+    } */
 </style>

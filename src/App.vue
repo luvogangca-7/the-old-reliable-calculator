@@ -6,7 +6,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #2d2d2d;
+  background-color: #3c3c3c;
 }
 #app {
   font-family: Arial, sans-serif;
