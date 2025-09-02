@@ -1,5 +1,9 @@
 # calculator
 
+## Visit the app using the link below
+
+https://gangcacalculator.netlify.app/
+
 ## Project setup
 ```
 npm install
